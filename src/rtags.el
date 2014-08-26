@@ -705,6 +705,11 @@ BUFFER : the buffer to be checked and reparsed, if it's nil, use current buffer"
           (setq rtags-location-stack-index target)
           (rtags-goto-location (nth rtags-location-stack-index rtags-location-stack) t))))))
 
+(defun rtags-reindex ()
+  (interactive)
+  (with-temp-buffer
+    (rtags-call-rc "-J")))
+
 ;; **************************** API *********************************
 
 (defcustom rtags-enabled t
@@ -853,6 +858,7 @@ return t if rtags is allowed to modify this file"
     (define-key map (concat prefix "e") (function rtags-reparse-file))
     (define-key map (concat prefix "E") (function rtags-preprocess-file))
     (define-key map (concat prefix "R") (function rtags-rename-symbol))
+    (define-key map (concat prefix "q") (function rtags-reindex))
     (define-key map (concat prefix "U") (function rtags-print-cursorinfo))
     (define-key map (concat prefix "O") (function rtags-goto-offset))
     (define-key map (concat prefix ";") (function rtags-find-file))
